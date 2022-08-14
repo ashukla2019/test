@@ -1,7 +1,7 @@
-import Tkinter as tk
-from Tkinter import *
-import ttk
-from dbfile import printData,insertData
+import tkinter as tk
+from tkinter import *
+from tkinter import ttk
+from dbfile import printData,insertData,checkProductExpiryValue
 
 class guiWindow:
 			
@@ -10,10 +10,12 @@ class guiWindow:
  
 		self.pawin = PanedWindow(orient ='horizontal')
 		
-		btn1 = Button(self.pawin, text="Exit_hello", fg="blue", command=quit)
+		btn1 = Button(self.pawin, text="Exit_hello", fg="blue", height=2, width=20, command=quit)
+		btn1.config(font=('Helvetica bold', 20))
 		btn1.pack(side=LEFT)
 				
-		btn2 = Button(self.pawin,text="Product_details",fg="red",command=self.product_info)
+		btn2 = Button(self.pawin,text="Product_details",fg="red", height=2, width=20, command=self.product_info)
+		btn2.config(font=('Helvetica bold', 20))
 		btn2.pack(side=LEFT)
 		
 		self.pawin.add(btn1)
@@ -22,6 +24,7 @@ class guiWindow:
 		self.pawin.pack()
 		
 		self.frame = Frame(master, width=600, height=400)
+		self.frame.place(x=10, y=20)
 		self.frame.pack()
 		self.frame.place(anchor='n', relx=0.5, rely=0.2)
 
@@ -38,12 +41,19 @@ class guiWindow:
 		self.clear_frame()
 		
 		bt1 = Button(self.frame,text="All Products",fg="red", height=5, width=30, command=self.getProductDetails)
+		bt1.config(font=('Helvetica bold', 20))
 		bt1.place(x=10, y=20)
 		bt1.pack(side=TOP)
 		
 		bt2 = Button(self.frame,text="Add Product",fg="green", height=5, width=30,command=self.addProduct)
+		bt2.config(font=('Helvetica bold', 20))
 		bt2.place(x=20, y=20)
 		bt2.pack(side=TOP)
+		
+		bt3 = Button(self.frame,text="Check Expiry",fg="blue", height=5,  width=30,command=self.checkProductExpiry)
+		bt3.config(font=('Helvetica bold', 20))
+		bt3.place(x=30, y=20)
+		bt3.pack(side=TOP)
 		
 	def getProductDetails(self):
 		printData()
@@ -72,12 +82,16 @@ class guiWindow:
 		canvas1.create_window(200, 220, window=self.entry2)
 		
 		button1 = tk.Button(root, text='Add details', command=self.add_details, bg='brown', fg='white', font=('helvetica', 9, 'bold'))
+		button1.config(font=('Helvetica bold', 20))
 		canvas1.create_window(200, 260, window=button1)
 
 	def add_details(self):
 		name = self.entry1.get()
 		date = self.entry2.get()
 		insertData(name, date)
+		
+	def checkProductExpiry(self):
+		checkProductExpiryValue()
 	
          
 app = tk.Tk()
